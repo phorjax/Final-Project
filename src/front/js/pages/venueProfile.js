@@ -23,9 +23,7 @@ export function VenueProfile() {
               <h2 className="venueName m-0">Venue Name</h2>
             </div>
             <div className="mx-2 pt-1">
-              <button className="btn btn-sm btn-primary">
-                <MessagingModal />
-              </button>
+              <button className="btn btn-sm btn-primary"></button>
             </div>
           </div>
           <div className="row mt-0">
