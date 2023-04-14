@@ -41,7 +41,7 @@ export const Navbar = () => {
             </li>
             <li>
               <a>
-                <Link to="/venues">Venues</Link>
+                <Link to="/venues/:theid">Venues</Link>
               </a>
             </li>
             <li>
