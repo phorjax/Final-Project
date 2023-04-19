@@ -18,15 +18,13 @@ export const Home = () => {
 
   const [filter, setFilter] = useState(artists)
 
+  console.log(artists)
+
   const rockArtists = store.artists.filter(artist => artist.genre == "Rock");
   const hipHopArtists = artists.filter(artist => artist.genre == "hip hop");
   const jazzArtists = artists.filter(artist => artist.genre == "jazz");
   const electronicArtists = artists.filter(artist => artist.genre == "electronic");
   const classicalArtists = artists.filter(artist => artist.genre == "classical")
-
-  console.log(rockArtists)
-
-  console.log(artists)
 
   const rockFilter = () => setArtists(rockArtists);
   const hipHopFilter = () => setArtists(hipHopArtists);
@@ -84,11 +82,11 @@ export const Home = () => {
       <div className="row px-3">
         <h1 className="artistitle">Artists</h1>
       </div>
-      <div className="d-flex flex-row flex-nowrap overflow-auto px-3">
+      {/* <div className="d-flex flex-row flex-nowrap overflow-auto px-3">
           <Artistcard artist_name="Jimi Hendrix" genre="rock" performance_type="singer" starRating="5.0"/>
-        </div>
+        </div> */}
         <div className="d-flex flex-row flex-nowrap overflow-auto px-3">
-          {artists.map((artist, index) => {<Artistcard name={artist.artist_name} genre={artist.genre} performance_type={artist.performance_type} link={"/artists/" + index}/>})}
+          {artists.map((artist) => {<Artistcard name={artist.artist_name} genre={artist.genre} performance_type={artist.performance_type} />})}
         </div>
 
       <div className="row px-3 mt-3">

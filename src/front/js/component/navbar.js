@@ -9,7 +9,9 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
 
   return (
+    
     <nav className="navbar navbar-light bg-light">
+    <div className="nav-bg-gradient"></div>
       <div className="container">
         <Link to="/">
           <span className="navbar-brand mb-0 h1">
