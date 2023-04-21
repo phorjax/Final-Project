@@ -22,7 +22,9 @@ export function VenueProfile() {
             <div>
               <h2 className="venueName m-0">Venue Name</h2>
             </div>
-            <div className="mx-2 pt-1">{MessagingModal}</div>
+            <div className="mx-2 pt-1">
+              <MessagingModal />{" "}
+            </div>
           </div>
           <div className="row mt-0">
             <div>

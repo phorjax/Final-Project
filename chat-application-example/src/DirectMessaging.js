@@ -1,5 +1,6 @@
 // DirectMessaging.js file code
 import React, { useState } from "react";
+import "./App.css";
 import { ChatEngine, getOrCreateChat } from "react-chat-engine";
 
 const DirectMessaging = () => {
@@ -18,7 +19,7 @@ const DirectMessaging = () => {
 
   const displayChatInterface = (credentials) => {
     return (
-      <div>
+      <div className="chat-eng">
         <input
           type="text"
           placeholder="Find username"
