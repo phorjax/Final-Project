@@ -37,11 +37,38 @@
   }
 } */
 
-.ce-chat-card {
+.ce-chats-container > div,
+.ce-settings {
   /* Chrome 10-25, Safari 5.1-6 */
-  background: #b44593 !important;
+  background: #ee7724 !important;
 }
 
+.ce-active-chat-card {
+  border: 2px solid gray !important;
+  background-color: rgb(200, 170, 78) !important;
+}
+
+.ce-chat-feed-container {
+  background-color: rgb(200, 170, 78) !important;
+}
+
+.ce-chat-form-container,
+.ce-chats-container {
+  background-color: rgb(97, 83, 204) !important;
+}
+
+.ce-chat-title-text {
+  color: black !important;
+}
+
+.ce-chat-title-container {
+  background-color: slategrey !important;
+}
+
+.ce-chat-subtitle-text,
+#ce-ice-breaker-text {
+  color: whitesmoke !important;
+}
 .ce-chats-form-container {
   background-color: black;
 }
