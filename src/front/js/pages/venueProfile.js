@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { MessagingModal } from "../component/messagingmodal";
 
 import "../../styles/venueProfile.css";
 
@@ -23,7 +22,14 @@ export function VenueProfile() {
               <h2 className="venueName m-0">Venue Name</h2>
             </div>
             <div className="mx-2 pt-1">
-              <MessagingModal />{" "}
+              <script
+                type="text/javascript"
+                id="hs-script-loader"
+                async
+                defer
+                src="//js-na1.hs-scripts.com/39571637.js"
+              ></script>
+              Message{" "}
             </div>
           </div>
           <div className="row mt-0">
