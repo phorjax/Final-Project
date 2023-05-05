@@ -86,7 +86,8 @@ class Venue(db.Model):
             "tiktok": self.tiktok,
             "soundcloud": self.soundcloud,
             "spotify": self.spotify,
-            "images": self.images
+            "images": self.images,
+            "user_id": self.user_id
            
         }
         
@@ -155,13 +156,14 @@ class Favorites(db.Model):
 
 class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(120), nullable=False)
+    subject = db.Column(db.String(120), nullable=False)
+    content = db.Column(db.String(), nullable=False)
     id_sender = db.Column(db.Integer, nullable=False)
     id_receiver = db.Column(db.Integer, nullable=False)
     sent_date = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f'<Messages {self.name}>'
+        return f'<Message {self.id}>'
     
     def serialize(self):
         return {

@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
+import Modal from 'react-bootstrap/Modal';
+
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
@@ -17,9 +19,37 @@ export function VenueProfile() {
   const venues = store.venues;
   const { id } = useParams();
 
+  // console.log(venues[id])
+
   const Address = `${venues[id]?.address}, ${venues[id]?.city}, ${venues[id]?.state}`;
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
+
+  
+
+  // <---variables/functions for mesaging modal--->
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [messageBody, setMessageBody] = useState("")
+  const [messageSubject, setMessageSubject] = useState("")
+
+  const testSenderID = 123
+  const testReceiverID = 456
+
+  useEffect(() => {
+    actions.getUser();
+    console.log(store.user)
+  }, []);
+
+  const sendMessage = () => {
+    actions.sendMessage ( 
+      messageSubject,
+      messageBody,
+      testSenderID,
+      testReceiverID
+    )
+  }
 
   // <----variables/functions for images/lightbox--->
   const images= venues[id]?.images == null ? ["https://saltplatecity.com/wp-content/uploads/2019/10/vivint-smart-home-concert-venue-salt-lake-city.jpg", "https://lajolla.com/wp-content/uploads/2019/01/hob.jpg", "https://pyxis.nymag.com/v1/imgs/1a0/d70/15535af3e89c90d627f4c19af4f74f2064-best-concert-venue-music-hall-of-william.rsquare.w700.jpg"] : venues[id]?.images.split(", ")
@@ -41,7 +71,7 @@ export function VenueProfile() {
   const [fiveStar, setFiveStar] = useState("fa-solid fa-star s5");
 
   let starRating = Math.ceil(Math.random() * 5);
-  console.log(starRating);
+  // console.log(starRating);
   useEffect(() => {
     if (starRating == 5) {
       setOneStar("fa-solid fa-star s1 goldRating");
@@ -104,6 +134,28 @@ export function VenueProfile() {
           onMoveNextRequest={() => setImgIndex((imgIndex + 1) % images.length)}
         />
       )}
+
+{/* <-----------------Code for Messaging Modal---------------------> */}
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Send {venues[id]?.venue_name} a message</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div class="form-group">
+          <input type="text" class="form-control mb-2" id="messageSubject" placeholder="Message Subject" onChange={(e) => setMessageSubject(e.target.value)}/>
+          <textarea class="form-control" id="messageBody" rows="3" placeholder="Write your message here" onChange={(e) => setMessageBody(e.target.value)}></textarea>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <button className="btn btn-danger" variant="secondary" onClick={handleClose}>
+          Close
+        </button>
+        <button className="btn btn-primary" onClick={sendMessage}>
+          Send
+        </button>
+      </Modal.Footer>
+    </Modal>
+      
       <div className="row mt-3 px-2 gx-3 d-flex mainRow h-75">
         <div className="col-md-5 mt-2 p-0 h-100">
           <img
@@ -118,6 +170,9 @@ export function VenueProfile() {
               <h2 className="venueName m-0">{venues[id]?.venue_name}</h2>
             </div>
             <div className="mx-2 pt-1">
+              <button className="btn btn-sm btn-primary" onClick={handleShow}>Message</button>
+            </div>
+            {/* <div className="mx-2 pt-1">
               <script
                 type="text/javascript"
                 id="hs-script-loader"
@@ -126,7 +181,7 @@ export function VenueProfile() {
                 src="//js-na1.hs-scripts.com/39571637.js"
               ></script>
               Message{" "}
-            </div>
+            </div> */}
           </div>
           <div className="row mt-0 ">
             <p className="my-0 small">
