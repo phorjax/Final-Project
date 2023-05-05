@@ -43,12 +43,18 @@ export function VenueProfile() {
   }, []);
 
   const sendMessage = () => {
+    const date= new Date()
+    const formattedDate = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`
+    
     actions.sendMessage ( 
       messageSubject,
       messageBody,
       testSenderID,
-      testReceiverID
+      testReceiverID,
+      formattedDate
     )
+
+    handleClose();
   }
 
   // <----variables/functions for images/lightbox--->

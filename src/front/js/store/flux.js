@@ -301,7 +301,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         subject,
         content,
         id_sender,
-        id_receiver
+        id_receiver,
+        sent_date
       ) => {
         const store = getStore();
 
@@ -315,7 +316,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             subject: subject,
             content: content,
             id_sender: id_sender,
-            id_receiver: id_receiver
+            id_receiver: id_receiver,
+            sent_date: sent_date
           }),
         };
         try {
