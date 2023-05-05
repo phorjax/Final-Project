@@ -1,7 +1,9 @@
 .profile-main-img {
     height: 100%;
+    width: 100%;
     background-color: grey;
     padding: auto;
+    object-fit: cover;
 }
 
 .mainRow {
@@ -9,12 +11,44 @@
 }
 
 .secondRow {
-    height: 450px;
+  /* outline: solid 1px red; */
+  height: calc(100vh - 575px);
 }
 
 .venueName {
     display: inline-block;
 }
+
+.star-wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  
+  .star-wrapper i:hover {
+      color: gold
+    }
+  
+    .s1:hover ~ i {
+      color: gold;
+    }
+    .s2:hover ~ i {
+      color: gold;
+    }
+    .s3:hover ~ i {
+      color: gold;
+    }
+    .s4:hover ~ i {
+      color: gold;
+    }
+    .s5:hover ~ i {
+      color: gold;
+    }
+
+    .goldRating {
+      color: gold;
+    }
 
 /* .star-rating-row {
     position: relative;
@@ -30,18 +64,38 @@
     width: 50px;
     height: 50px;
     border: 2px solid black;
+    text-decoration: none;
+}
+
+.social-link:hover {
+  color: var(--maingold);
+  border: 2px solid var(--maingold);
 }
 
 .smImage {
     background-color: gainsboro;
     width: 100px;
     height: 200px;
+    object-fit: cover;
 }
 
-.smImageRow {
-    background-color: burlywood;
-}
+
 
 .calendar {
-    width: 300px;
+    height: 300px;
+    object-fit: contain;
+}
+
+.map-h2 {
+  font-weight: 700;
+  
+  text-align: center;
+  font-size: 28px !important;
+}
+
+.where-we-are {
+  /* outline: solid 1px blue; */
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
 }

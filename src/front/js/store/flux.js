@@ -6,11 +6,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: null,
       artists: [],
       venues: [],
+      favoriteVenues: [],
+      favoriteArtists: [],
     },
     actions: {
       logout: () => {
         sessionStorage.removeItem("token");
-        console.log("loging out");
+        console.log("logging out");
         setStore({ token: null });
       },
       syncTokenfromSessionStorage: () => {
@@ -18,6 +20,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (token && token !== undefined && token !== "")
           setStore({ token: token });
       },
+      // getCoordinates: async (Address) => {
+      //   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${Address}&key=AIzaSyDecCwDfJgrb7eqAPY9il-YWvcs5RdPmuE`)
+
+      //   .then((responseText) => {
+      //     return responseText.json();
+      //   })
+      //   .then(jsonData => {
+      //     console.log(jsonData.results[0].geometry.location.lat); //111 Wellington St, Ottawa, ON K1A 0A9, Canada
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+
+      //   })},
+      
       getArtist: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/artists");
@@ -31,7 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getVenue: async () => {
         try {
           const resp = await fetch(
-            process.env.BACKEND_URL + "/api/register/venues"
+            process.env.BACKEND_URL + "/api/venues"
           );
           const data = await resp.json();
           setStore({ venues: data });
@@ -40,44 +56,71 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading venues", error);
         }
       },
+      VenueFavorite: (name) => {
+        let favorites = getStore().favoriteVenues;
+        let venues = getStore().venues;
 
+        favorites.forEach((favorite) => {
+          if (favorite.venue_name == name) {
+            favorites.pop(favorite);
+          } else {
+            venues.forEach((venue, index) => {
+              if (venue.venue_name == name) {
+                favorites.push(venue);
+              }
+            });
+          }
+        });
+        setStore({ favorite: favorites });
+      },
+      ArtistFavorite: (name) => {
+        let artists = getStore().favoriteArtists;
+        let favorites = getStore().favorites;
+        favorites.forEach((favorite) => {
+          if (favorite.artist_name == name) {
+            favorites.pop(favorite);
+          } else {
+            artists.forEach((artist, index) => {
+              if (artist.artist_name == name) {
+                favorites.push(artist);
+              }
+            });
+          }
+        });
+        setStore({ favorite: favorites });
+      },
       postArtist: async (
-        first_name,
-        last_name,
-        username,
-        email,
-        password,
         artist_name,
         genre,
         performance_type,
+        about_info,
         instagram,
         facebook,
         twitter,
         soundcloud,
         spotify,
-        tiktok
+        tiktok,
+        images
       ) => {
+        const store = getStore();
+
         const opts = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
           },
           body: JSON.stringify({
-            first_name: first_name,
-            last_name: last_name,
-            username: username,
-            email: email,
-            password: password,
             artist_name: artist_name,
             genre: genre,
             performance_type: performance_type,
+            about_info: about_info,
             instagram: instagram,
             facebook: facebook,
             twitter: twitter,
             soundcloud: soundcloud,
             spotify: spotify,
             tiktok: tiktok,
-            // user_id: 1,
           }),
         };
         try {
@@ -97,7 +140,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("Error! Description: " + error);
         }
       },
-
       postVenue: async (
         venue_name,
         address,
@@ -112,18 +154,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         pay_rate,
         fees,
         equipment,
-        about,
+        about_info,
         instagram,
         facebook,
         twitter,
         soundcloud,
         spotify,
-        tiktok
+        tiktok,
+        images
       ) => {
+        const store = getStore();
         const opts = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
           },
           body: JSON.stringify({
             venue_name: venue_name,
@@ -138,15 +183,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             hiring: hiring,
             pay_rate: pay_rate,
             fees: fees,
-            equipment,
-            about,
+            equipment: equipment,
+            about_info: about_info,
             instagram: instagram,
             facebook: facebook,
             twitter: twitter,
             soundcloud: soundcloud,
             spotify: spotify,
             tiktok: tiktok,
-            // user_id: 1,
           }),
         };
         try {
@@ -199,7 +243,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log("user signed up: " + data[0]);
           sessionStorage.setItem("token", data[1]);
-          setStore({ artists: data[0] });
           setStore({ token: data[1] });
 
           return true;
@@ -207,29 +250,30 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("Error! Description: " + error);
         }
       },
-      login: async (email, password) => {
+      login: async (username, password) => {
         const opts = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email,
+            username: username,
             password: password,
           }),
         };
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/User", opts);
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/login",
+            opts
+          );
           if (resp.status !== 200) {
             alert("There has been an error");
             return false;
           }
 
           const data = await resp.json();
-          console.log("this came from the backend", data);
-          sessionStorage.setItem("token", data[1]);
-          setStore({ artists: data[0] });
-          setStore({ token: data[1] });
+          sessionStorage.setItem("token", data.access_token);
+          setStore({ token: data.access_token });
           return true;
         } catch (error) {
           console.error("There has been an error logging in");
@@ -255,21 +299,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      Authorization: () => {
-        const store = getStore();
-        const opts = {
-          headers: {
-            Authorization: "Bearer " + store.token,
-          },
-        };
-        // fetching data from the backend
-        fetch(process.env.BACKEND_URL + "/api/private", opts)
-          .then((resp) => resp.json())
-          .then((data) => setStore({ message: data.artists.username }))
-          .catch((error) => console.log(error));
+      // Authorization: () => {
+      //   const store = getStore();
+      //   const opts = {
+      //     headers: {
+      //       Authorization: "Bearer " + store.token,
+      //     },
+      //   };
+      //   // fetching data from the backend
+      //   fetch(process.env.BACKEND_URL + "/api/register/artist", opts)
+      //     .then((resp) => resp.json())
+      //     .then((data) => setStore({ message: data.artists.username }))
+      //     .catch((error) => console.log(error));
 
-        // don't forget to return something, that is how the async resolves
-      },
+      //   // don't forget to return something, that is how the async resolves
+      // },
     },
   };
 };

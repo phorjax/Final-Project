@@ -3,15 +3,15 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import GigHive from "../../img/GigHive.png";
 
+
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
 
-  
-
   return (
     <nav className="navbar navbar-light bg-light">
+      <div className="gradient-bg"></div>
       <div className="container">
         <Link to="/">
           <span className="navbar-brand mb-0 h1">
@@ -31,48 +31,38 @@ export const Navbar = () => {
 
           <ul className="dropdown-menu">
             <li>
-              <a>
-                <Link to="/">Home</Link>
-              </a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a>
-                <Link to="/profile">Profile</Link>
-              </a>
+              <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <a>
-                <Link to="/artists">Artists</Link>
-              </a>
+              <Link to="/artists">Artists</Link>
             </li>
             <li>
-              <a>
-                <Link to="/venues/:theid">Venues</Link>
-              </a>
+              <Link to="/venues">Venues</Link>
             </li>
             <li>
-              <a>
-                <Link to="/artists">Browse Works</Link>
-              </a>
+              <Link to="/artists">Browse Works</Link>
             </li>
             <li>
-              <a>
-                <Link to="/help">Host an event</Link>
-              </a>
+              <Link to="/help">Host an event</Link>
             </li>
             <li>
-              <Link to="/register">
-                <a>Sign up</a>
-              </Link>
+              <Link to="/register">Sign up</Link>
+            </li>
+            <li>
+              <Link to="/venues">Venues</Link>
+            </li>
+            <li>
+              <Link to="/artists">Artists</Link>
             </li>
             <li>
               {!store.token ? (
-                <Link to="/login">
-                  <a>Log in</a>
-                </Link>
+                <Link to="/login">Log in</Link>
               ) : (
                 <Link to="/">
-                  <a onClick={() => actions.logout()}>Log out</a>
+                  <span onClick={() => actions.logout()}>Log out</span>
                 </Link>
               )}
             </li>
