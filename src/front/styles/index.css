@@ -5,10 +5,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
-  --maingold: rgb(238,186,73);
-  --purple: rgb(137,104,205);
-  --maingold-darker: hsl(41,83%,41%);
-  --purple-darker: hsl(260,50%,40%);
+  --maingold: rgb(238, 186, 73);
+  --purple: rgb(137, 104, 205);
+  --maingold-darker: hsl(41, 83%, 41%);
+  --purple-darker: hsl(260, 50%, 40%);
 }
 
 .am {
@@ -53,4 +53,10 @@
 .pic {
   background-size: cover;
   background-repeat: no-repeat;
+}
+.footerbackground {
+  background-color: rgb(137, 104, 205);
+}
+.iconfooter {
+  color: rgb(253, 207, 108);
 }
