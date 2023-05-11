@@ -53,6 +53,8 @@
 .pic {
   background-size: cover;
   background-repeat: no-repeat;
+
+  background-image: url(https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1600);
 }
 .footerbackground {
   background-color: rgb(137, 104, 205);

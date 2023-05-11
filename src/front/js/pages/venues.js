@@ -12,7 +12,7 @@ export const Venues = () => {
   //these are for add favorites and defavorite one
 
   return (
-    <div className="venues-container container d-flex flex-column justify-content-md-center">
+    <div className="pic venues-container container d-flex flex-column justify-content-md-center">
       <div className="mt-5 mx-5 d-flex justify-content-between">
         <h1 className="mb-5">Venues</h1>
       </div>
